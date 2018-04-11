@@ -18,31 +18,18 @@ const allApis = (app)=>  {
 }
 
 
-
-const createUser = (email, password) => {
-  const firstAdmin = new admin({email, password})
-
-  firstAdmin.save((err, firstAdmin) => {
-    if (err) console.error(err)
-    console.log(firstAdmin)
-  })
-
-  console.log(firstAdmin);
-
-}
-
 const login = (email, password) => {
   // log them in and give a token
-  admin.findOne({email, password}, (err, user) => {
+  return admin.findOne({email, password}, (err, user) => {
     if (err) return console.error(err)
     console.log({user})
-
+    // return user
   })
+
 }
 
 
 module.exports = {
   allApis,
-  createUser,
   login,// mongoose.model('User',userSchema)
 }

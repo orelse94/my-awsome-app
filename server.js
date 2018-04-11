@@ -70,12 +70,14 @@ app.delete('/quotes', (req, res) => {
 })
 
 app.post('/login/signup', (req, res) => {
-  const createUser = require('./security').createUser
-  console.log('lofsdaofasodfoas');
   let email = req.body.email
   let password = req.body.password
-  createUser(email,password)
-  res.redirect('/login/signedup')
+  let userData = {email, password}
+  db.collection('admins').save(userData,(err, results) => {
+    if (err) return console.error(err)
+    console.log('1 user added to db : ', userData )
+    res.redirect('/login/signedup')
+  })
 })
 
 app.get('/login', (req, res) => {
@@ -89,19 +91,22 @@ app.get('/login', (req, res) => {
 app.get('/login/signedup', (req, res) => {
   return res.render('signIn.ejs')
 })
-app.get('/justSignedup', (req, res) => {
-  return res.redirect('/signup')
-})
 
-app.post('/login/loginPage', (req, res) => {
+app.get('/login/loginPage', (req, res) => {
   return res.redirect('/login/signedup')
 })
-app.post('/login/logToSys', (req, res, next) => {
 
+app.get('/afterpage', (req, res) => {
+  return res.render('sysuser.ejs')
+})
+
+app.post('/login/logToSys', (req, res) => {
   let email = req.body.email
   let password = req.body.password
+  login(email, password).then((u) => {console.log(u);})
 
-  login(email, password)
+  return res.redirect('/afterpage')
+
 })
 
 secConn(app)
