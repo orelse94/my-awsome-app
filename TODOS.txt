@@ -1,0 +1,5 @@
+# fix quote update
+# add delete certain row
+# create tests
+# create git repo
+# blind typing
