@@ -69,14 +69,30 @@ app.delete('/quotes', (req, res) => {
     })
 })
 
+app.post('/trytry', (req, res) => {
+    // console.log('tru is working', Object.keys(req), req.body, req.params);
+
+    // res.status(200).send({message: 'we reached trytry'})
+    // res.end()
+   res.json({ errors: 'Photo not found' });
+
+  // let password = req.body.password
+  // let email = req.body.email
+  // let userData = {email, password}
+  // return res.send(userData);
+})
+
 app.post('/login/signup', (req, res) => {
   let email = req.body.email
   let password = req.body.password
   let userData = {email, password}
+
   db.collection('admins').save(userData,(err, results) => {
     if (err) return console.error(err)
     console.log('1 user added to db : ', userData )
-    res.redirect('/login/signedup')
+    res.json({ errors: 'Photo not found' });
+    res.status(200).redirect('/login/signedup')
+
   })
 })
 

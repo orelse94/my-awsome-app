@@ -20,10 +20,11 @@ const allApis = (app)=>  {
 
 const login = (email, password) => {
   // log them in and give a token
+  console.log('checking if user exists');
   return admin.findOne({email, password}, (err, user) => {
     if (err) return console.error(err)
     console.log({user})
-    // return user
+    return user
   })
 
 }
